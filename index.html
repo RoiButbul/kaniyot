@@ -91,7 +91,7 @@ const GUESS={
 
 let db, syncMeta;
 try{db=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){db=null}
-if(!db||db.version!==1){db={version:1,categories:DEFAULT_CATS.map((name,i)=>({id:uid(),name,order:i,updatedAt:now()})),items:[]}}
+if(!db||db.version!==1){db={version:1,categories:DEFAULT_CATS.map((name,i)=>({id:'cat-default-'+(i+1),name,order:i,updatedAt:0})),items:[]}}
 try{syncMeta=JSON.parse(localStorage.getItem(SYNC_META)||'null')||{revision:null}}catch(e){syncMeta={revision:null}}
 
 let editMode=false, syncState='busy', syncText='מסנכרן…', pushTimer=null, pushing=false, pendingPush=false;
@@ -137,7 +137,7 @@ async function pull(){
 
 async function push(){
   if(pushing){pendingPush=true;return}
-  pushing=true;setSync('busy','מסנכרן…');
+  pushing=true;clearTimeout(pushTimer);pushTimer=null;setSync('busy','מסנכרן…');
   try{
     for(let attempt=0;attempt<3;attempt++){
       const res=await fetch(SYNC_URL,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({baseRevision:syncMeta.revision,data:db})});
@@ -157,7 +157,7 @@ function schedulePush(ms=400){clearTimeout(pushTimer);pushTimer=setTimeout(push,
 function touch(){persist();render();schedulePush()}
 function setSync(state,text){syncState=state;syncText=text;const el=document.querySelector('.syncdot');if(el){el.className='syncdot '+state;el.innerHTML=`<i></i>${safe(text)}`}}
 
-setInterval(()=>{if(!pushing&&!pushTimer)pull()},2000);
+setInterval(()=>{if(!pushing)pull()},2000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)pull()});
 
 function guessCat(name){
@@ -173,8 +173,9 @@ function addItem(){
   const catName=sel.value||guessCat(name)||'אחר';
   let cat=visibleCats().find(c=>c.name===catName)||otherCat();
   db.items.push({id:uid(),catId:cat.id,name,done:false,deleted:false,updatedAt:now()});
-  inp.value='';userPickedCat=false;
-  touch();inp.focus();
+  userPickedCat=false;
+  touch();
+  const fresh=document.getElementById('newitem');if(fresh)fresh.focus();
 }
 function toggleItem(id){
   const it=db.items.find(i=>i.id===id);if(!it)return;
