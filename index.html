@@ -233,7 +233,7 @@ function render(){
   </header>
   <div class="addbar">
     <input id="newitem" placeholder="מה קונים?" autocomplete="off" enterkeyhint="done">
-    <select id="newcat">${cats.map(c=>`<option>${safe(c.name)}</option>`).join('')}</select>
+    <select id="newcat">${cats.map(c=>`<option ${c.name==='אחר'?'selected':''}>${safe(c.name)}</option>`).join('')}</select>
     <button class="addbtn" data-act="add" aria-label="הוספה">+</button>
   </div>
   ${!anyItems?`<div class="empty">הרשימה ריקה. מוסיפים משהו למעלה.</div>`:''}
