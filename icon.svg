@@ -1,7 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#8a5a33"/>
-  <path d="M132 168h28l38 168c4 18 20 30 38 30h122c18 0 34-12 38-30l26-120H196" fill="none" stroke="#ffffff" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="238" cy="408" r="24" fill="#ffffff"/>
-  <circle cx="342" cy="408" r="24" fill="#ffffff"/>
-  <path d="M236 264l30 30 62-66" fill="none" stroke="#ffffff" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="114" fill="#fffefa"/>
+<g stroke="#b07d4f" stroke-width="17" stroke-linecap="round"><path d="M256 60v32M136 92l22 28M376 92l-22 28M88 172l30 20M424 172l-30 20M76 264h32M404 264h32"/></g>
+<path d="M196 208c0-34 26-60 60-60s60 26 60 60" fill="none" stroke="#8a5a33" stroke-width="18" stroke-linecap="round"/>
+<path d="M156 232h200l-14 120c-4 32-30 56-62 56h-48c-32 0-58-24-62-56z" fill="none" stroke="#8a5a33" stroke-width="20" stroke-linejoin="round"/>
+<path d="M186 264l10 96M256 264v96M326 264l-10 96" stroke="#8a5a33" stroke-width="12" fill="none" stroke-linecap="round"/>
 </svg>
