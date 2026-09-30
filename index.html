@@ -322,7 +322,8 @@ document.addEventListener('keydown',e=>{
 document.addEventListener('input',e=>{
   if(e.target.id==='newitem'&&!userPickedCat){
     const g=learnedCatName(e.target.value)||guessCat(e.target.value);
-    if(g){const sel=document.getElementById('newcat');if(sel)sel.value=g}
+    const sel=document.getElementById('newcat');
+    if(sel){const other=visibleCats().find(c=>c.name==='אחר');sel.value=g||(other?other.name:sel.value)}
   }
 });
 document.addEventListener('change',e=>{
