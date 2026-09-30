@@ -91,18 +91,24 @@ try{db=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){db=null}
 if(!db||db.version!==1){db={version:1,categories:DEFAULT_CATS.map(c=>({...c,updatedAt:0})),items:[],learned:[]}}
 if(!Array.isArray(db.learned))db.learned=[];
 (function migrateV2(){
-  const REMAP={'cat-default-7':'cat-default-3','cat-default-4':'cat-default-9','cat-default-5':'cat-default-9','cat-default-6':'cat-default-9','cat-default-8':'cat-default-9','cat-default-pantry':'cat-default-9'};
-  const OLDNAMES={'cat-default-7':'קפואים','cat-default-4':'מאפיה','cat-default-5':'משקאות','cat-default-6':'חטיפים וממתקים','cat-default-8':'ניקיון ותחזוקה','cat-default-pantry':'מזווה ואפייה'};
-  const NAMES={'cat-default-1':'ירקות ופירות','cat-default-2':'חלב וביצים','cat-default-3':'בשר, דגים וקפואים','cat-default-9':'אחר'};
-  const needs=db.categories.some(c=>REMAP[c.id]||NAMES[c.id]&&c.name!==NAMES[c.id])||db.items.some(i=>REMAP[i.catId])||db.learned.some(l=>REMAP[l.catId])||!db.categories.some(c=>c.id==='cat-default-stocks'&&!c.deleted)||!db.categories.some(c=>c.id==='cat-default-big'&&!c.deleted);
+  const ALIAS={'פירות וירקות':'cat-default-1','ירקות ופירות':'cat-default-1','חלב וביצים':'cat-default-2','בשר ודגים':'cat-default-3','בשר, דגים וקפואים':'cat-default-3','קפואים':'cat-default-3','מאפיה':'cat-default-9','משקאות':'cat-default-9','חטיפים וממתקים':'cat-default-9','מזווה ואפייה':'cat-default-9','ניקיון ותחזוקה':'cat-default-9','אחר':'cat-default-9','סטוקים':'cat-default-stocks','ביג':'cat-default-big'};
+  const DEFIDS=DEFAULT_CATS.map(c=>c.id);
+  const needs=db.categories.some(c=>!c.deleted&&ALIAS[c.name]&&c.id!==ALIAS[c.name])||!db.categories.some(c=>c.id==='cat-default-stocks'&&!c.deleted)||!db.categories.some(c=>c.id==='cat-default-big'&&!c.deleted)||db.items.some(i2=>{const c=db.categories.find(x=>x.id===i2.catId);return c&&ALIAS[c.name]&&c.id!==ALIAS[c.name]})||db.learned.some(l=>{const c=db.categories.find(x=>x.id===l.catId);return c&&ALIAS[c.name]&&c.id!==ALIAS[c.name]});
   if(!needs)return;
   const t=now();
-  db.items.forEach(i2=>{if(REMAP[i2.catId]){i2.catId=REMAP[i2.catId];i2.updatedAt=t}});
-  db.learned.forEach(l=>{if(REMAP[l.catId]){l.catId=REMAP[l.catId];l.updatedAt=t}});
-  const custom=db.categories.filter(c=>!NAMES[c.id]&&!REMAP[c.id]&&c.id!=='cat-default-stocks'&&c.id!=='cat-default-big');
-  custom.forEach((c,i2)=>{c.order=10+i2;c.updatedAt=t});
-  const tomb=Object.keys(REMAP).map(id=>({id,name:OLDNAMES[id],order:999,deleted:true,updatedAt:t}));
-  db.categories=DEFAULT_CATS.map(c=>({...c,updatedAt:t})).concat(tomb,custom);
+  const targetOf={};
+  const kept=[],tomb=[];
+  for(const c of db.categories){
+    if(c.deleted){tomb.push(c);continue}
+    const al=ALIAS[c.name];
+    if(al&&c.id!==al){targetOf[c.id]=al;tomb.push({...c,deleted:true,order:999,updatedAt:t})}
+    else if(DEFIDS.includes(c.id)){/* default, reseeded below */}
+    else{kept.push(c)}
+  }
+  kept.forEach((c,i2)=>{c.order=10+i2;c.updatedAt=t});
+  db.items.forEach(i2=>{if(targetOf[i2.catId]){i2.catId=targetOf[i2.catId];i2.updatedAt=t}});
+  db.learned.forEach(l=>{if(targetOf[l.catId]){l.catId=targetOf[l.catId];l.updatedAt=t}});
+  db.categories=DEFAULT_CATS.map(c=>({...c,updatedAt:t})).concat(kept,tomb);
 })();
 try{syncMeta=JSON.parse(localStorage.getItem(SYNC_META)||'null')||{revision:null}}catch(e){syncMeta={revision:null}}
 
