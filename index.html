@@ -117,7 +117,7 @@ let editMode=false, syncState='busy', syncText='מסנכרן…', pushTimer=null
 function persist(){localStorage.setItem(KEY,JSON.stringify(db))}
 function safe(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function catById(id){return db.categories.find(c=>c.id===id)}
-function catShade(c){const P=['#c08a4e','#a06a35','#855626','#6e4a20','#8a5a33','#5d3d1e'];const M={'cat-default-3':0,'cat-default-2':1,'cat-default-1':2,'cat-default-9':3,'cat-default-stocks':4,'cat-default-big':5};return P[M[c.id]!=null?M[c.id]:(c.order|0)%P.length]}
+function catShade(c){return '#855626'}
 function otherCat(){let c=db.categories.find(c=>c.name==='אחר'&&!c.deleted);if(!c){c={id:uid(),name:'אחר',order:999,updatedAt:now()};db.categories.push(c)}return c}
 function visibleCats(){return db.categories.filter(c=>!c.deleted).sort((a,b)=>a.order-b.order)}
 function catItems(cid){return db.items.filter(i=>i.catId===cid&&!i.deleted)}
