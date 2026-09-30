@@ -1,10 +1,10 @@
 {
-  "name": "הקניות שלנו",
+  "name": "קניות",
   "short_name": "קניות",
   "description": "רשימת קניות משותפת, מסונכרנת בזמן אמת.",
   "lang": "he",
   "dir": "rtl",
-  "start_url": "./?v=2",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
