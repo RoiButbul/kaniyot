@@ -78,21 +78,24 @@ const KEY='shopping.data.v1', SYNC_META='shopping.sync.v1';
 const uid=()=>crypto.randomUUID();
 const now=()=>Date.now();
 
-const DEFAULT_CATS=['פירות וירקות','חלב וביצים','בשר ודגים','מאפיה','משקאות','חטיפים וממתקים','קפואים','ניקיון ותחזוקה','אחר'];
+const DEFAULT_CATS=['פירות וירקות','חלב וביצים','בשר ודגים','מאפיה','משקאות','חטיפים וממתקים','קפואים','מזווה ואפייה','ניקיון ותחזוקה','אחר'];
 const GUESS={
- 'פירות וירקות':['עגבנ','מלפפון','בצל','תפוח','בננה','אבוקדו','לימון','תפוז','גזר','פלפל','חסה','מלון','אבטיח','ענב','אגס','קיווי','מנגו','פטרי','שום','פטרוזיליה','כוסבר','נענע','תירס','קישוא','בטטה','תפוחי אדמה','תפוא','חציל','ברוקולי','כרוב','סלרי','אגוז','שקד','תמר','זית'],
- 'חלב וביצים':['חלב','גבינ','ביצ','יוגורט','שמנת','קוטג','חמאה','מוצרלה','קממבר','פרמזן','ריקוטה','מילקי','שוקו'],
- 'בשר ודגים':['עוף','בשר','דגים','דג','טונה','סלמון','שניצל','קציצ','נקניק','הודו','בקר','כבש','פסטרמה','אנטריקוט','אסאדו','פרגית','כבד'],
- 'מאפיה':['לחם','לחמני','פיתה','בגט','עוגי','עוג','רוגלך','בורקס','קרואסון','מאפ','חלה','בייגל','סופגני'],
- 'משקאות':['מים','מיץ','קולה','ספרייט','פנטה','בירה','יין','קפה','תה','סודה','משקה','מיץ תפוזים','מיץ תפוחים','מיץ ענבים','אנרגי','ויסקי','וודקה','אערק'],
- 'חטיפים וממתקים':['עוגיות','במבה','ביסלי','שוקולד','חטיף','ממתק','סוכרי','עוגיית','חלווה','חלבה','פופקורן','דוריטוס','ציפס','אוראו','קינדר','סניקרס'],
- 'קפואים':['קפוא','גלידה','פיצה','שניצלונים','ציפס קפוא','בלינצס'],
- 'ניקיון ותחזוקה':['נייר טואלט','מגבון','סבון','שמפו','מרכך','אקונומיקה','אבקת כביסה','כביסה','מטלית','ספוג','שקית זבל','שקיות זבל','אלכוהול','מנקה','נוזל כלים','ספונגה','טישו','ממחט','משחת שיניים','שיניים','דאודורנט','גל רחצה','נרות','נר','סולל']
+ 'פירות וירקות':['עגבנ','מלפפון','בצל','תפוח','בננה','אבוקדו','לימון','ליים','תפוז','מנדרינה','קלמנטינה','אפרסק','נקטרינה','שזיף','רימון','פאפיה','גזר','פלפל','חסה','תרד','רוקט','ארוגולה','מלון','אבטיח','ענב','אגס','קיווי','מנגו','פטרי','שום','גינגר','זנגביל','פטרוזיליה','כוסבר','נענע','בזיליקום','רוזמרין','שמיר','תירס','קישוא','בטטה','תפוחי אדמה','תפוא','חציל','ברוקולי','כרובית','כרוב','דלעת','סלק','צנון','אספרגוס','ארטישוק','שעועית','סלרי','אגוז','אגוזי מלך','קשיו','פיסטוק','בוטנים','צימוקים','חמוציות','פירות יבשים','שקד','תמר','זית','תות'],
+ 'חלב וביצים':['חלב','גבינ','בולגרי','צפתית','מסקרפונה','ביצ','יוגורט','יופלה','דנונה','דני','פודינג','מעדנ','שמנת','קוטג','חמאה','מוצרלה','קממבר','פרמזן','ריקוטה','מילקי','שוקו','טופו'],
+ 'בשר ודגים':['עוף','בשר','טחון','המבורגר','כנפיים','שווארמה','נתח','צלי','חזה','פילה','קבב','מרגז','דגים','דג','סלמון','ברמונדי','בורי','מושט','לוקוס','אמנון','דניס','פורל','שניצל','קציצ','נקניק','הודו','בקר','כבש','פסטרמה','אנטריקוט','אסאדו','פרגית','כבד'],
+ 'מאפיה':['לחם','לחמני','טוסט','פיתה','בגט','פוקאצ','ציאבט','עוגי','עוג','רוגלך','בורקס','קרואסון','מאפינס','מאפ','חלה','בייגל','סופגני'],
+ 'משקאות':['מים','מיץ','מיץ תפוזים','מיץ תפוחים','מיץ ענבים','קולה','פפסי','ספרייט','פנטה','טוניק','בירה','גולדסטאר','מכבי','היינקן','קורונה','יין','שמפני','פרוסקו','סידר','קפה','אספרסו','קפוצ','נס קפה','נמס','תה','סודה','משקה','אנרגי','רד בול','ויסקי','וודקה','אבסולוט','אערק','ערק','טקילה','גין','ליקר'],
+ 'חטיפים וממתקים':['במבה','ביסלי','דוריטוס','ציטוס','פרינגלס','קראנץ','שוקולד','נוטלה','מילקה','לוטוס','מארס','טוויקס','באונטי','קיט','טובלרון','מנטוס','סקיטלס','גומי','וופל','חטיף','ממתק','סוכרי','עוגיות','עוגיית','חלווה','חלבה','פופקורן','ציפס','אוראו','קינדר','סניקרס'],
+ 'קפואים':['קפוא','גלידה','פיצה','שניצלונים','ציפס קפוא','נאגטס','פלאפל','גחנון','בלינצס'],
+ 'מזווה ואפייה':['פסטה','ספגטי','מקרוני','אטריות','פנה','אורז','בורגול','קוסקוס','קינואה','עדשים','קורנפלקס','דגני','גרנולה','שיבולת','שמן זית','קמח','סוכר','מלח','פלפל שחור','תבלינים','פפריקה','כורכום','קינמון','אורגנו','זעתר','אבקת אפייה','סודה לשתייה','קקאו','וניל','דבש','סילאן','מייפל','ריבה','ריבת','חמאת בוטנים','טחינה','שמן','חומץ','סויה','רוטב','קטשופ','מיונז','חרדל','שימורים','טונה','סרדינים','חמוצים','מצה','מצות','אבקת שוקו'],
+ 'ניקיון ותחזוקה':['נייר טואלט','נייר אפייה','נייר כסף','ניילון','מגבות נייר','מגבון','סמרטוט','קרצוף','מברשת','מטאטא','את','דלי','סבון','שמפו','מרכך','אקונומיקה','אבקת כביסה','כביסה','טבליות','מדיח','וניש','סנונית','אבנית','מטלית','ספוג','שקית זבל','שקיות זבל','אלכוהול','אלכוג','כפפות','מנקה','נוזל כלים','ספונגה','טישו','ממחט','משחת שיניים','שיניים','דנטלי','דאודורנט','גל רחצה','קרם גוף','מי פה','וסתות','טמפונים','פדים','גילוח','פלסטר','בנדאיד','נרות','נר','סולל','נורה','נורות','גפרור']
 };
 
 let db, syncMeta;
 try{db=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){db=null}
-if(!db||db.version!==1){db={version:1,categories:DEFAULT_CATS.map((name,i)=>({id:'cat-default-'+(i+1),name,order:i,updatedAt:0})),items:[]}}
+if(!db||db.version!==1){db={version:1,categories:DEFAULT_CATS.map((name,i)=>({id:'cat-default-'+(i+1),name,order:i,updatedAt:0})),items:[],learned:[]}}
+if(!Array.isArray(db.learned))db.learned=[];
+if(!db.categories.some(c=>c.name==='מזווה ואפייה'&&!c.deleted))db.categories.push({id:'cat-default-pantry',name:'מזווה ואפייה',order:6.5,updatedAt:now()});
 try{syncMeta=JSON.parse(localStorage.getItem(SYNC_META)||'null')||{revision:null}}catch(e){syncMeta={revision:null}}
 
 let editMode=false, syncState='busy', syncText='מסנכרן…', pushTimer=null, pushing=false, pendingPush=false;
@@ -107,16 +110,17 @@ function catItems(cid){return db.items.filter(i=>i.catId===cid&&!i.deleted)}
 function merge(remote){
   if(!remote||remote.version!==1||!Array.isArray(remote.items)||!Array.isArray(remote.categories))return false;
   let changed=false;
-  const mergeList=(mine,theirs)=>{
-    const map=new Map(mine.map(x=>[x.id,x]));
+  const mergeList=(mine,theirs,key='id')=>{
+    const map=new Map(mine.map(x=>[x[key],x]));
     for(const t of theirs){
-      const m=map.get(t.id);
+      const m=map.get(t[key]);
       if(!m){mine.push(t);changed=true}
       else if((t.updatedAt||0)>(m.updatedAt||0)){Object.assign(m,t);changed=true}
     }
   };
   mergeList(db.categories,remote.categories);
   mergeList(db.items,remote.items);
+  if(Array.isArray(remote.learned))mergeList(db.learned,remote.learned,'name');
   return changed;
 }
 
@@ -162,6 +166,13 @@ setInterval(()=>{if(!pushing)pull()},2000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)pull()});
 
 function norm(s){return s.replace(/[׳״'"]/g,'').replace(/\s+/g,' ').trim()}
+function learnedCatName(name){
+  const key=norm(name);let best=null;
+  for(const e of db.learned)if(e.name===key&&(!best||e.updatedAt>best.updatedAt))best=e;
+  if(!best)return null;
+  const c=catById(best.catId);
+  return c&&!c.deleted?c.name:null;
+}
 function guessCat(name){
   const n=norm(name),words=n.split(' ');
   let best=null,bestScore=0;
@@ -180,7 +191,7 @@ let userPickedCat=false;
 function addItem(){
   const inp=document.getElementById('newitem'),sel=document.getElementById('newcat');
   const name=inp.value.trim();if(!name)return;
-  const catName=sel.value||guessCat(name)||'אחר';
+  const catName=sel.value||learnedCatName(name)||guessCat(name)||'אחר';
   let cat=visibleCats().find(c=>c.name===catName)||otherCat();
   db.items.push({id:uid(),catId:cat.id,name,done:false,deleted:false,updatedAt:now()});
   userPickedCat=false;
@@ -203,7 +214,11 @@ function renameItem(id,name){
 function moveItem(id,catName){
   const it=db.items.find(i=>i.id===id);if(!it)return;
   const cat=visibleCats().find(c=>c.name===catName);if(!cat)return;
-  it.catId=cat.id;it.updatedAt=now();touch();
+  it.catId=cat.id;it.updatedAt=now();
+  const key=norm(it.name);
+  db.learned=db.learned.filter(e=>e.name!==key);
+  db.learned.push({name:key,catId:cat.id,updatedAt:it.updatedAt});
+  touch();
 }
 function renameCat(id,name){
   const c=catById(id);if(!c)return;
@@ -306,7 +321,7 @@ document.addEventListener('keydown',e=>{
 });
 document.addEventListener('input',e=>{
   if(e.target.id==='newitem'&&!userPickedCat){
-    const g=guessCat(e.target.value);
+    const g=learnedCatName(e.target.value)||guessCat(e.target.value);
     if(g){const sel=document.getElementById('newcat');if(sel)sel.value=g}
   }
 });
