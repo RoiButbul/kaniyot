@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#faf6f0">
 <meta name="description" content="רשימת קניות משותפת, מסונכרנת בזמן אמת.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
@@ -12,10 +12,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap');
 :root{
   color-scheme:light;
-  --bg:#ffffff; --panel:#f7f7f4; --line:#e9e9e2;
-  --ink:#1f2421; --muted:#8a8f88;
-  --accent:#0d9488; --accent-soft:#e6f7f4;
-  --danger:#dc2626;
+  --bg:#faf6f0; --panel:#f3ecdf; --line:#e8ddcc;
+  --ink:#2e2119; --muted:#a08b76;
+  --accent:#8a5a33; --accent-soft:#f2e7d8;
+  --danger:#b3402e;
   font-family:'Heebo',system-ui,sans-serif;
 }
 *{box-sizing:border-box}
@@ -32,9 +32,9 @@ main{max-width:560px;margin:auto;padding:calc(env(safe-area-inset-top) + 20px) 1
 .chipbtn{font-size:13px;font-weight:500;color:var(--muted);padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel)}
 .chipbtn.on{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
 .syncdot{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);padding:7px 4px}
-.syncdot i{width:8px;height:8px;border-radius:50%;background:#9ca39a;display:block}
+.syncdot i{width:8px;height:8px;border-radius:50%;background:#c4b3a0;display:block}
 .syncdot.ok i{background:var(--accent)}
-.syncdot.busy i{background:#d97706}
+.syncdot.busy i{background:#c98a2e}
 .syncdot.err i{background:var(--danger)}
 
 .addbar{display:grid;grid-template-columns:1fr auto auto;gap:8px;margin-bottom:22px}
@@ -47,24 +47,24 @@ main{max-width:560px;margin:auto;padding:calc(env(safe-area-inset-top) + 20px) 1
 .cat{margin-bottom:8px}
 .cat-head{display:flex;align-items:center;gap:8px;padding:10px 4px 6px;font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.02em}
 .cat-head .count{font-weight:400}
-.cat-head input{font-size:13px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:4px 8px;background:#fff;flex:1;min-width:0}
+.cat-head input{font-size:13px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:4px 8px;background:#fffdf9;flex:1;min-width:0}
 .cat-head .x{color:var(--muted);font-size:15px;padding:4px 8px;border-radius:8px}
 .cat-head .x.sure{color:#fff;background:var(--danger)}
 .item{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:12px;padding:11px 6px;border-bottom:1px solid var(--line)}
 .item.editing{grid-template-columns:auto 1fr auto auto}
 .item:last-child{border-bottom:0}
-.box{width:26px;height:26px;border-radius:50%;border:2px solid #c9cdc5;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s}
+.box{width:26px;height:26px;border-radius:50%;border:2px solid #d8cbb8;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s}
 .box svg{opacity:0;transform:scale(.5);transition:all .15s}
 .item.done .box{background:var(--accent);border-color:var(--accent)}
 .item.done .box svg{opacity:1;transform:scale(1)}
 .item .name{font-size:16.5px;line-height:1.35;word-break:break-word}
-.item.done .name{color:var(--muted);text-decoration:line-through;text-decoration-color:#c9cdc5}
-.item .name-input{min-width:0;width:100%;font-size:16.5px;border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:#fff;min-width:0}
+.item.done .name{color:var(--muted);text-decoration:line-through;text-decoration-color:#d8cbb8}
+.item .name-input{min-width:0;width:100%;font-size:16.5px;border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:#fffdf9;min-width:0}
 .item .x{color:var(--muted);font-size:14px;padding:4px 6px;border-radius:8px}
-.item select{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:4px;background:#fff;width:104px}
+.item select{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:4px;background:#fffdf9;width:104px}
 .empty{padding:36px 0;text-align:center;color:var(--muted);font-size:15px}
 .clearwrap{text-align:center;margin-top:26px}
-.clearbtn{font-size:14px;font-weight:500;color:var(--danger);padding:10px 18px;border-radius:999px;border:1px solid #f3d2d2}
+.clearbtn{font-size:14px;font-weight:500;color:var(--danger);padding:10px 18px;border-radius:999px;border:1px solid #ecd5cd}
 .addcat{display:block;margin:14px auto 0;font-size:14px;font-weight:500;color:var(--accent);padding:9px 18px;border-radius:999px;border:1.5px dashed var(--accent)}
 .notice{font-size:13px;color:var(--muted);text-align:center;margin:6px 0 0}
 </style>
@@ -78,24 +78,32 @@ const KEY='shopping.data.v1', SYNC_META='shopping.sync.v1';
 const uid=()=>crypto.randomUUID();
 const now=()=>Date.now();
 
-const DEFAULT_CATS=['פירות וירקות','חלב וביצים','בשר ודגים','מאפיה','משקאות','חטיפים וממתקים','קפואים','מזווה ואפייה','ניקיון ותחזוקה','אחר'];
+const DEFAULT_CATS=[{id:'cat-default-3',name:'בשר, דגים וקפואים',order:0},{id:'cat-default-2',name:'חלב וביצים',order:1},{id:'cat-default-1',name:'ירקות ופירות',order:2},{id:'cat-default-9',name:'אחר',order:3},{id:'cat-default-stocks',name:'סטוקים',order:4},{id:'cat-default-big',name:'ביג',order:5}];
 const GUESS={
- 'פירות וירקות':['עגבנ','מלפפון','בצל','תפוח','בננה','אבוקדו','לימון','ליים','תפוז','מנדרינה','קלמנטינה','אפרסק','נקטרינה','שזיף','רימון','פאפיה','גזר','פלפל','חסה','תרד','רוקט','ארוגולה','מלון','אבטיח','ענב','אגס','קיווי','מנגו','פטרי','שום','גינגר','זנגביל','פטרוזיליה','כוסבר','נענע','בזיליקום','רוזמרין','שמיר','תירס','קישוא','בטטה','תפוחי אדמה','תפוא','חציל','ברוקולי','כרובית','כרוב','דלעת','סלק','צנון','אספרגוס','ארטישוק','שעועית','סלרי','אגוז','אגוזי מלך','קשיו','פיסטוק','בוטנים','צימוקים','חמוציות','פירות יבשים','שקד','תמר','זית','תות'],
- 'חלב וביצים':['חלב','גבינ','בולגרי','צפתית','מסקרפונה','ביצ','יוגורט','יופלה','דנונה','דני','פודינג','מעדנ','שמנת','קוטג','חמאה','מוצרלה','קממבר','פרמזן','ריקוטה','מילקי','שוקו','טופו'],
- 'בשר ודגים':['עוף','בשר','טחון','המבורגר','כנפיים','שווארמה','נתח','צלי','חזה','פילה','קבב','מרגז','דגים','דג','סלמון','ברמונדי','בורי','מושט','לוקוס','אמנון','דניס','פורל','שניצל','קציצ','נקניק','הודו','בקר','כבש','פסטרמה','אנטריקוט','אסאדו','פרגית','כבד'],
- 'מאפיה':['לחם','לחמני','טוסט','פיתה','בגט','פוקאצ','ציאבט','עוגי','עוג','רוגלך','בורקס','קרואסון','מאפינס','מאפ','חלה','בייגל','סופגני'],
- 'משקאות':['מים','מיץ','מיץ תפוזים','מיץ תפוחים','מיץ ענבים','קולה','פפסי','ספרייט','פנטה','טוניק','בירה','גולדסטאר','מכבי','היינקן','קורונה','יין','שמפני','פרוסקו','סידר','קפה','אספרסו','קפוצ','נס קפה','נמס','תה','סודה','משקה','אנרגי','רד בול','ויסקי','וודקה','אבסולוט','אערק','ערק','טקילה','גין','ליקר'],
- 'חטיפים וממתקים':['במבה','ביסלי','דוריטוס','ציטוס','פרינגלס','קראנץ','שוקולד','נוטלה','מילקה','לוטוס','מארס','טוויקס','באונטי','קיט','טובלרון','מנטוס','סקיטלס','גומי','וופל','חטיף','ממתק','סוכרי','עוגיות','עוגיית','חלווה','חלבה','פופקורן','ציפס','אוראו','קינדר','סניקרס'],
- 'קפואים':['קפוא','גלידה','פיצה','שניצלונים','ציפס קפוא','נאגטס','פלאפל','גחנון','בלינצס'],
- 'מזווה ואפייה':['פסטה','ספגטי','מקרוני','אטריות','פנה','אורז','בורגול','קוסקוס','קינואה','עדשים','קורנפלקס','דגני','גרנולה','שיבולת','שמן זית','קמח','סוכר','מלח','פלפל שחור','תבלינים','פפריקה','כורכום','קינמון','אורגנו','זעתר','אבקת אפייה','סודה לשתייה','קקאו','וניל','דבש','סילאן','מייפל','ריבה','ריבת','חמאת בוטנים','טחינה','שמן','חומץ','סויה','רוטב','קטשופ','מיונז','חרדל','שימורים','טונה','סרדינים','חמוצים','מצה','מצות','אבקת שוקו'],
- 'ניקיון ותחזוקה':['נייר טואלט','נייר אפייה','נייר כסף','ניילון','מגבות נייר','מגבון','סמרטוט','קרצוף','מברשת','מטאטא','את','דלי','סבון','שמפו','מרכך','אקונומיקה','אבקת כביסה','כביסה','טבליות','מדיח','וניש','סנונית','אבנית','מטלית','ספוג','שקית זבל','שקיות זבל','אלכוהול','אלכוג','כפפות','מנקה','נוזל כלים','ספונגה','טישו','ממחט','משחת שיניים','שיניים','דנטלי','דאודורנט','גל רחצה','קרם גוף','מי פה','וסתות','טמפונים','פדים','גילוח','פלסטר','בנדאיד','נרות','נר','סולל','נורה','נורות','גפרור']
+ 'ירקות ופירות':['עגבנ','מלפפון','בצל','שום','גזר','פלפל','חסה','חסות','אייסברג','תרד','רוקט','ארוגולה','גרגיר','קישוא','זוקיני','סקוש','בטטה','בטט','תפוחי אדמה','תפוא','חציל','ברוקולי','כרובית','כרוב','דלעת','דלע','דלורית','סלק','צנון','צנונית','אספרגוס','ארטישוק','שעועית','לוביה','פול','סלרי','שומר','קולורבי','קולרבי','לפת','מנגולד','קייל','ראדיקיו','אנדיב','במיה','כרישה','שאלוט','ג׳לפינו','ג\'לפינו','צ׳ילי','צ\'ילי','הבנרו','גמבה','בוק צ׳וי','בוק צ\'וי','ניצני','תירס','פטרי','פורטובלו','שיטאקה','שמפיניון','אטריה','גינגר','ג׳ינג׳ר','זנגביל','נבט','לבבות דקל','פטרוזיליה','כוסבר','כוסברה','נענע','בזיליקום','רוזמרין','שמיר','עירית','מרווה','טימין','לואיזה','תפוח','בננה','בננ','אבוקדו','לימון','ליים','תפוז','מנדרינה','קלמנטינה','אשכול','פומלה','פומלית','אפרסק','אפרסמון','שסק','נקטרינה','שזיף','רימון','פאפיה','מלון','אבטיח','ענב','אגס','נאשי','קיווי','מנגו','תות','אוכמנ','פטל','דובדבן','משמש','אננס','קוקוס','פסיפלורה','גויאבה','פיג׳ויה','פיג\'ויה','ליצ׳י','ליצ\'י','רמבוטן','קמקווט','פיטאיה','תאנה','תאנ','אנונה','זית','קלמטה','תמר','חרוב','סברס','אגוז','קשיו','פיסטוק','בוטנ','שקד','פקאן','מקדמיה','צנובר','חמנית','גרעיני','צימוקים','חמוציות','פירות יבשים','אגוזי לוז','מעורב אגוזים','מיקס אגוזים','שקדים מולבנים'],
+ 'חלב וביצים':['חלב','שוקו','יוגורט','לאבנה','לבן','קוטג׳','קוטג\'','קוטג','גבינה','גבינת','גבינ','חמאה','שמנת','מרגרינה','ביצים','ביצה','ביצי','קפיר','רוויון','איירן','פודינג','טירמיסו','פלאן','קרם קרמל','קרם פרש','עוגת גבינה','מעדן','מי גבינה','צהובה','לבנה','קממבר','ברי','פטה','בולגרית','צפתית','פרמזן','פרמיג׳אנו','פרמיג\'אנו','מוצרלה','בוקונצ׳יני','בוקונצ\'יני','סקמורצה','גאודה','אדם','אמנטלר','רוקפור','גורגונזולה','מסקרפונה','ריקוטה','הלומי','קשקבל','קשקוול','כשכוואל','צ׳דר','צ\'דר','עמק','גלעד','פקורינו','גראנה','גרייר','אסיאגו','פרובולונה','פונטינה','סטילטון','מנצ׳גו','מנצ\'גו','טומה','הווארטי','טילזיט','ראקלט','קונטה','דנבלו','מונטרי ג׳ק','מונטרי ג\'ק','קולבי','סטרקינו','מימולט','טלג׳יו','טלג\'יו','גבינה מלוחה','גבינת שמנת','גבינה מעושנת','גבינת עזים','גבינת כבשים','גבינה קשה','יופלה','דנונה','אקטימל','אקטיביה','מולר','גמדים','מילקי','דניאלה','יוגו','סקי','גוגורט','פרולי','שוקו חמוץ','מילקי שוקולד','יוגורט יווני','יוגורט טבעי','יוגורט דל שומן','יוגורט נטול לקטוז','יוגורט עיזים','לאבנה כבשים','לאבנה עזים','תנובה','שטראוס','טרה','יטבתה','גד','מחלבות','צוריאל','גולן','קירי','פילדלפיה','אלמטה','בייביבל','טופו','חלב סויה','חלב שקדים','חלב שיבולת','חלב אורז','שמנת צמחית','גבינה צמחית','חלב נטול לקטוז','חלב מלא','חלב דל שומן','חלב מיובש','חלב מרוכז','חמאה מלוחה','חמאה לא מלוחה','שמנת לבישול','שמנת להקצפה','שמנת מתוקה','שמנת חמוצה','קרם גבינה','ביצים חופש','ביצי לול','ביצי שליו'],
+ 'בשר, דגים וקפואים':['בשר','בקר','טחון','אנטריקוט','סינטה','אסאדו','צלעות','שפונדרה','כתף','צוואר','זנב','גולאש','אוסובוקו','פילה','סטייק','קבב','המבורגר','קציצות','שניצל','צלי','כבד','טלה','כבש','עגל','הודו','ברווז','שליו','נקניק','פסטרמה','קבנוס','סלמי','רוסטביף','פיקניה','מעורב ירושלמי','שווארמה','קובה','כופתאות','שוקיים','כנפיים','ירכיים','פרגיות','חזה','עוף','עופות','כרעיים','אנגוס','צ׳וריסו','צ\'וריסו','בייקון','פנצ׳טה','פנצ\'טה','פרושוטו','פרנקפורטר','ברטוורסט','שיפודי','נתח','וינר','נטו','מעדני מזרח','טירת צבי','שקדי עוף','בשר מתובל','קבב טחון','המבורגר בקר','צלי כתף','צלעות טלה','צלעות בקר','דג','דגים','סלמון','טונה','סרדין','פורל','אמנון','נילוס','דניס','מושט','בורי','קרפיון','מקרל','בקלה','מרלוזה','הליבוט','לברק','לוקוס','אנשוי','הרינג','מולית','שרימפס','קלמארי','דיונון','תמנון','צדפות','אצבעות דגים','סלמון מעושן','דג מעושן','דג מלוח','פילה דג','טונה בשמן','טונה במים','קוויאר','קפוא','גלידה','גליד','קרטיב','מגנום','קורנטו','סולרו','גלידון','סורבה','שרבט','אקליר','פיצה','בצק','פילו','בורקס','פלאפל','אפונה','תלמה','סנפרוסט','זוגלובק','צ׳יפס קפוא','צ\'יפס קפוא','ירקות קפואים','מאפים קפואים','גלידת שוקולד','מלווח','סמבוסק','ג׳חנון','ג\'חנון','נאגטס','מוקפץ','וופל בלגי','קרח','תות קפוא','מנגו קפוא','אננס קפוא','ברוקולי קפוא','כרובית קפואה','תירס קפוא','שעועית קפואה','בצל קצוץ קפוא','אוכמניות קפואות','פטל קפוא','ארטישוק קפוא','תרד קפוא','פיצה קפואה','בצק פיצה','בצק שמרים','בצק עלים','קציצות דגים','שניצלונים'],
+ 'אחר':['שוקולד','חלבה','חלבון','חמאת בוטנים','חמאת שקדים','חמאת קשיו','ריבה','ריבת','שמן זית','שמן קוקוס','שומשום','מוסקט','קפה טחון','פלפל שחור','פלפל טחון','חלב קוקוס','קוקוס מגורד','גרנולה','קורנפלקס','קקאו']
 };
 
 let db, syncMeta;
 try{db=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){db=null}
-if(!db||db.version!==1){db={version:1,categories:DEFAULT_CATS.map((name,i)=>({id:'cat-default-'+(i+1),name,order:i,updatedAt:0})),items:[],learned:[]}}
+if(!db||db.version!==1){db={version:1,categories:DEFAULT_CATS.map(c=>({...c,updatedAt:0})),items:[],learned:[]}}
 if(!Array.isArray(db.learned))db.learned=[];
-if(!db.categories.some(c=>c.name==='מזווה ואפייה'&&!c.deleted))db.categories.push({id:'cat-default-pantry',name:'מזווה ואפייה',order:6.5,updatedAt:now()});
+(function migrateV2(){
+  const REMAP={'cat-default-7':'cat-default-3','cat-default-4':'cat-default-9','cat-default-5':'cat-default-9','cat-default-6':'cat-default-9','cat-default-8':'cat-default-9','cat-default-pantry':'cat-default-9'};
+  const OLDNAMES={'cat-default-7':'קפואים','cat-default-4':'מאפיה','cat-default-5':'משקאות','cat-default-6':'חטיפים וממתקים','cat-default-8':'ניקיון ותחזוקה','cat-default-pantry':'מזווה ואפייה'};
+  const NAMES={'cat-default-1':'ירקות ופירות','cat-default-2':'חלב וביצים','cat-default-3':'בשר, דגים וקפואים','cat-default-9':'אחר'};
+  const needs=db.categories.some(c=>REMAP[c.id]||NAMES[c.id]&&c.name!==NAMES[c.id])||db.items.some(i=>REMAP[i.catId])||db.learned.some(l=>REMAP[l.catId])||!db.categories.some(c=>c.id==='cat-default-stocks'&&!c.deleted)||!db.categories.some(c=>c.id==='cat-default-big'&&!c.deleted);
+  if(!needs)return;
+  const t=now();
+  db.items.forEach(i2=>{if(REMAP[i2.catId]){i2.catId=REMAP[i2.catId];i2.updatedAt=t}});
+  db.learned.forEach(l=>{if(REMAP[l.catId]){l.catId=REMAP[l.catId];l.updatedAt=t}});
+  const custom=db.categories.filter(c=>!NAMES[c.id]&&!REMAP[c.id]&&c.id!=='cat-default-stocks'&&c.id!=='cat-default-big');
+  custom.forEach((c,i2)=>{c.order=10+i2;c.updatedAt=t});
+  const tomb=Object.keys(REMAP).map(id=>({id,name:OLDNAMES[id],order:999,deleted:true,updatedAt:t}));
+  db.categories=DEFAULT_CATS.map(c=>({...c,updatedAt:t})).concat(tomb,custom);
+})();
 try{syncMeta=JSON.parse(localStorage.getItem(SYNC_META)||'null')||{revision:null}}catch(e){syncMeta={revision:null}}
 
 let editMode=false, syncState='busy', syncText='מסנכרן…', pushTimer=null, pushing=false, pendingPush=false;
@@ -165,7 +173,7 @@ function setSync(state,text){syncState=state;syncText=text;const el=document.que
 setInterval(()=>{if(!pushing)pull()},2000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)pull()});
 
-function norm(s){return s.replace(/[׳״'"]/g,'').replace(/\s+/g,' ').trim()}
+function norm(s){return s.replace(/[׳״'"]/g,'').replace(/[ךםןףץ]/g,c=>({'ך':'כ','ם':'מ','ן':'נ','ף':'פ','ץ':'צ'}[c])).replace(/\s+/g,' ').trim().toLowerCase()}
 function learnedCatName(name){
   const key=norm(name);let best=null;
   for(const e of db.learned)if(e.name===key&&(!best||e.updatedAt>best.updatedAt))best=e;
