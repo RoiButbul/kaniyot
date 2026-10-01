@@ -50,8 +50,10 @@ main{max-width:560px;margin:auto;padding:calc(env(safe-area-inset-top) + 20px) 1
 .cat-head input{font-size:13px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:4px 8px;background:#fffdf9;flex:1;min-width:0}
 .cat-head .x{color:var(--muted);font-size:15px;padding:4px 8px;border-radius:8px}
 .cat-head .x.sure{color:#fff;background:var(--danger)}
-.item{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:12px;padding:11px 6px;border-bottom:1px solid var(--line)}
-.item.editing{grid-template-columns:auto 1fr auto auto}
+.item{touch-action:pan-y;user-select:none;transition:transform .16s ease,opacity .16s ease;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:12px;padding:11px 6px;border-bottom:1px solid var(--line)}
+.item.editing{touch-action:auto;user-select:auto;grid-template-columns:auto 1fr auto auto}
+.item.swiping{transition:none;will-change:transform}
+@media(prefers-reduced-motion:reduce){.item{transition:none}}
 .item:last-child{border-bottom:0}
 .box{width:26px;height:26px;border-radius:50%;border:2px solid #d8cbb8;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s}
 .box svg{opacity:0;transform:scale(.5);transition:all .15s}
@@ -307,6 +309,44 @@ function itemHtml(i){
     <div class="name">${safe(i.name)}</div>
   </div>`;
 }
+
+/* Sideways swipe deletes a row without adding resting UI. Vertical scrolling stays native. */
+let itemSwipe=null, swipeClickUntil=0;
+function resetItemSwipe(g){
+  if(!g)return;
+  g.row.classList.remove('swiping');g.row.style.transform='';g.row.style.opacity='';
+  try{if(g.row.hasPointerCapture(g.pointerId))g.row.releasePointerCapture(g.pointerId)}catch(e){}
+}
+document.addEventListener('pointerdown',e=>{
+  if(itemSwipe){resetItemSwipe(itemSwipe);itemSwipe=null;return}
+  const row=e.target.closest('.item[data-toggle]');
+  if(!row||editMode||e.isPrimary===false||e.button!==0)return;
+  itemSwipe={row,id:row.dataset.toggle,pointerId:e.pointerId,x:e.clientX,y:e.clientY,dx:0,axis:null};
+});
+document.addEventListener('pointermove',e=>{
+  const g=itemSwipe;if(!g||g.pointerId!==e.pointerId)return;
+  const dx=e.clientX-g.x,dy=e.clientY-g.y;
+  if(!g.axis){
+    if(Math.max(Math.abs(dx),Math.abs(dy))<12)return;
+    if(Math.abs(dx)>Math.abs(dy)*1.4){g.axis='x';g.row.classList.add('swiping');try{g.row.setPointerCapture(e.pointerId)}catch(e){}}
+    else{itemSwipe=null;resetItemSwipe(g);return}
+  }
+  if(e.cancelable)e.preventDefault();
+  g.dx=dx;g.row.style.transform='translateX('+dx+'px)';
+  g.row.style.opacity=String(Math.max(.25,1-Math.abs(dx)/g.row.getBoundingClientRect().width));
+},{passive:false});
+function endItemSwipe(e,cancelled){
+  const g=itemSwipe;if(!g||g.pointerId!==e.pointerId)return;itemSwipe=null;
+  if(g.axis==='x')swipeClickUntil=Date.now()+450;
+  const threshold=Math.min(120,Math.max(80,g.row.getBoundingClientRect().width*.3));
+  const remove=!cancelled&&g.axis==='x'&&Math.abs(g.dx)>=threshold&&g.row.isConnected&&!editMode;
+  resetItemSwipe(g);if(remove)delItem(g.id);
+}
+document.addEventListener('pointerup',e=>endItemSwipe(e,false));
+document.addEventListener('pointercancel',e=>endItemSwipe(e,true));
+document.addEventListener('click',e=>{
+  if(Date.now()<swipeClickUntil&&e.target.closest('.item')){e.preventDefault();e.stopImmediatePropagation()}
+},true);
 
 document.addEventListener('click',e=>{
   const t=e.target;
