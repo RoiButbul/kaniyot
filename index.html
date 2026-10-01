@@ -314,7 +314,7 @@ function itemHtml(i){
 let itemSwipe=null, swipeClickUntil=0;
 function resetItemSwipe(g){
   if(!g)return;
-  g.row.classList.remove('swiping');g.row.style.transform='';g.row.style.opacity='';
+  g.row.classList.remove('swiping');g.row.style.transform='';g.row.style.opacity='';g.row.style.backgroundColor='';g.row.style.color='';
   try{if(g.row.hasPointerCapture(g.pointerId))g.row.releasePointerCapture(g.pointerId)}catch(e){}
 }
 document.addEventListener('pointerdown',e=>{
@@ -333,12 +333,14 @@ document.addEventListener('pointermove',e=>{
   }
   if(e.cancelable)e.preventDefault();
   g.dx=dx;g.row.style.transform='translateX('+dx+'px)';
-  g.row.style.opacity=String(Math.max(.25,1-Math.abs(dx)/g.row.getBoundingClientRect().width));
+  const warning=Math.min(1,Math.abs(dx)/(g.row.getBoundingClientRect().width*.55));
+  g.row.style.backgroundColor='rgba(179,64,46,'+(.08+warning*.2)+')';
+  g.row.style.color='var(--danger)';
 },{passive:false});
 function endItemSwipe(e,cancelled){
   const g=itemSwipe;if(!g||g.pointerId!==e.pointerId)return;itemSwipe=null;
   if(g.axis==='x')swipeClickUntil=Date.now()+450;
-  const threshold=Math.min(120,Math.max(80,g.row.getBoundingClientRect().width*.3));
+  const threshold=Math.min(280,Math.max(150,g.row.getBoundingClientRect().width*.55));
   const remove=!cancelled&&g.axis==='x'&&Math.abs(g.dx)>=threshold&&g.row.isConnected&&!editMode;
   resetItemSwipe(g);if(remove)delItem(g.id);
 }
