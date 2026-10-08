@@ -256,7 +256,7 @@ function delCat(id){
   touch();
 }
 function addCat(){
-  const c={id:uid(),name:'כותרת חדשה',order:visibleCats().length,updatedAt:now()};
+  const c={id:uid(),name:'קטגוריה חדשה',order:visibleCats().length,updatedAt:now()};
   db.categories.push(c);editMode=true;touch();
   setTimeout(()=>{const inp=document.getElementById('catname-'+c.id);if(inp){inp.focus();inp.select()}},50);
 }
@@ -296,7 +296,7 @@ function render(){
       ${open.map(i=>itemHtml(i)).join('')}${done.map(i=>itemHtml(i)).join('')}
     </section>`;
   }).join('')}
-  <button class="addcat" data-act="addcat">+ כותרת חדשה</button>
+  <button class="addcat" data-act="addcat">+ קטגוריה חדשה</button>
   ${anyDone&&!editMode?`<div class="clearwrap"><button class="clearbtn" data-act="cleardone">ניקוי מסומנים</button></div>`:''}`;
 }
 function itemHtml(i){
