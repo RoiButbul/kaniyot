@@ -1,0 +1,20 @@
+name: Deploy to Cloudflare Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Collect site files
+        run: |
+          mkdir dist
+          cp index.html manifest.webmanifest sw.js icon.svg apple-touch-icon.png icon-192.png icon-512.png dist/
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 21a706b35d7af7088941f13e33b04481
+          command: pages deploy dist --project-name=kaniyot --branch=main --commit-dirty=true
