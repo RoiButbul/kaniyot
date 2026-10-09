@@ -192,7 +192,12 @@ function norm(s){return s.replace(/[׳״'"]/g,'').replace(/[ךםןףץ]/g,c=>({'
 function learnedCatName(name){
   const key=norm(name);let best=null;
   for(const e of db.learned)if(e.name===key&&(!best||e.updatedAt>best.updatedAt))best=e;
-  if(!best)return null;
+  if(!best){
+    let last=null;
+    for(const i of db.items)if(norm(i.name)===key){const c=catById(i.catId);if(c&&!c.deleted){const r=(i.deleted?0:1e15)+(i.updatedAt||0);if(!last||r>last.r)last={i,r}}}
+    if(!last)return null;
+    return catById(last.i.catId).name;
+  }
   const c=catById(best.catId);
   return c&&!c.deleted?c.name:null;
 }
@@ -214,7 +219,7 @@ let userPickedCat=false;
 function addItem(){
   const inp=document.getElementById('newitem'),sel=document.getElementById('newcat');
   const name=inp.value.trim();if(!name)return;
-  const catName=sel.value||learnedCatName(name)||guessCat(name)||'אחר';
+  const catName=(userPickedCat&&sel.value)||learnedCatName(name)||guessCat(name)||sel.value||'אחר';
   let cat=visibleCats().find(c=>c.name===catName)||otherCat();
   db.items.push({id:uid(),catId:cat.id,name,done:false,deleted:false,updatedAt:now()});
   userPickedCat=false;
